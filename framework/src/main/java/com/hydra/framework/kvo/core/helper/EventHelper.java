@@ -6,6 +6,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import androidx.annotation.Nullable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -56,7 +57,7 @@ public class EventHelper {
     private static final int NOT_SUPPORT_FIELD_MODIFIERS = Modifier.STATIC | Modifier.NATIVE
             | Modifier.ABSTRACT;
 
-    public static List<Method> getExcludeSystemMethods(Class<?> clazz) {
+    public static List<Method> getExcludeSystemMethods(@NonNull Class<?> clazz) {
         try {
             return getMethodRecursive(clazz);
         } catch (NoClassDefFoundError error) {
@@ -77,7 +78,7 @@ public class EventHelper {
         }
     }
 
-    private static boolean canMethodBeFiltered(Method method) {
+    private static boolean canMethodBeFiltered(@NonNull Method method) {
         return (method.getModifiers() & NOT_SUPPORT_METHOD_MODIFIERS) != 0 ||
                 method.isBridge() || method.isSynthetic();
     }
@@ -106,7 +107,7 @@ public class EventHelper {
         }
     }
 
-    private static boolean canClassBeFiltered(Class<?> clazz) {
+    private static boolean canClassBeFiltered(@Nullable Class<?> clazz) {
         if (clazz == null) {
             return true;
         }
@@ -120,7 +121,7 @@ public class EventHelper {
     }
 
     //和method处理方法类似
-    public static List<Field> getExcludeSystemFields(Class<?> clazz) {
+    public static List<Field> getExcludeSystemFields(@NonNull Class<?> clazz) {
         try {
             return getFieldRecursive(clazz);
         } catch (NoClassDefFoundError error) {
@@ -141,11 +142,11 @@ public class EventHelper {
         }
     }
 
-    private static boolean canFieldBeFiltered(Field field) {
+    private static boolean canFieldBeFiltered(@NonNull Field field) {
         return (field.getModifiers() & NOT_SUPPORT_FIELD_MODIFIERS) != 0 || field.isSynthetic();
     }
 
-    private static List<Field> getFieldRecursive(Class<?> clazz) {
+    private static List<Field> getFieldRecursive(@NonNull Class<?> clazz) {
         List<Field> fieldList = new ArrayList<>();
 
         Class<?> cls = clazz;

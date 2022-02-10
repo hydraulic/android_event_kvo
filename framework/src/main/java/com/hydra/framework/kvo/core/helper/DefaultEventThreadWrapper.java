@@ -2,6 +2,7 @@ package com.hydra.framework.kvo.core.helper;
 
 import android.util.SparseArray;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.hydra.framework.kvo.core.IEventThread;
@@ -13,7 +14,8 @@ import com.hydra.framework.thread.ThreadBus;
  */
 public class DefaultEventThreadWrapper {
 
-    private static SparseArray<IEventThread> sEventThreadMap = new SparseArray<>();
+    @NonNull
+    private static final SparseArray<IEventThread> sEventThreadMap = new SparseArray<>();
 
     static {
         for (int i = ThreadBus.Main; i < ThreadBus.Inherent_Thread_Index; i++) {
