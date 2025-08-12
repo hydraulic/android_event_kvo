@@ -9,7 +9,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "android_kvo_binder"
+rootProject.name = "android_event_kvo"
 
 include ':app'
 include ':framework'

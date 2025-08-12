@@ -6,6 +6,9 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.hydra.framework.thread.core.HandlerThreadAsyncAdapter;
+import com.hydra.framework.thread.core.ScheduledThreadPoolAsyncAdapter;
+import com.hydra.framework.thread.core.ThreadAsyncAdapter;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
