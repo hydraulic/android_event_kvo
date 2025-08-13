@@ -1,26 +1,23 @@
-package com.yy.base.event.kvo.helper;
+package com.hydra.framework.event.kvo.helper;
 
-import static com.yy.base.event.core.helper.EventHelper.getExcludeSystemFields;
-import static com.yy.base.event.core.helper.EventHelper.getExcludeSystemMethods;
-import static com.yy.base.event.kvo.Kvo.KVO_LOG_TAG;
 
 import androidx.annotation.NonNull;
-
-import com.yy.base.event.core.EventAction;
-import com.yy.base.event.kvo.KvoFieldAnnotation;
-import com.yy.base.event.kvo.KvoMethodAnnotation;
-import com.yy.base.event.kvo.KvoSource;
-import com.yy.base.event.kvo.list.KvoList;
-import com.yy.base.event.kvo.map.KvoHashMap;
-import com.yy.base.event.kvo.set.KvoHashSet;
-import com.yy.base.logger.MLog;
-
+import com.hydra.framework.event.core.EventAction;
+import com.hydra.framework.event.kvo.KvoFieldAnnotation;
+import com.hydra.framework.event.kvo.KvoMethodAnnotation;
+import com.hydra.framework.event.kvo.KvoSource;
+import com.hydra.framework.event.kvo.list.KvoList;
+import com.hydra.framework.event.utils.EventLog;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+
+
+import static com.hydra.framework.event.core.helper.EventHelper.getExcludeSystemFields;
+import static com.hydra.framework.event.core.helper.EventHelper.getExcludeSystemMethods;
 
 /**
  * 做两个事情
@@ -29,6 +26,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * 3、加入了一个给kvo的EventAction的标志位
  */
 public class KvoHelper {
+
+    private static final String TAG = "KvoHelper";
 
     //kvo event action flags
     //这个标志位目前是给kvoList使用，强制同步通知 和 主线程通知
@@ -121,7 +120,7 @@ public class KvoHelper {
             //这里的判断只需要判断名字，因为参数都是KvoEventIntent类型，返回值也都是void
             //所以不存在 重载 的情况；在覆盖时，preMethod也是子类的method，保留即可
             if (preMethod != null && preMethod.getName().equals(method.getName())) {
-                MLog.debug(KVO_LOG_TAG, "getKvoMethods find method override, subMethod: " +
+                EventLog.debug(TAG, "getKvoMethods find method override, subMethod: " +
                         preMethod.getName() + ", superMethod: " + method.getName());
                 continue;
             }
@@ -203,7 +202,7 @@ public class KvoHelper {
 
                     kvoFields.put(annotation.name(), kvoField);
                 } else {
-                    MLog.warn(KVO_LOG_TAG, "two field in sub class and superclass has the same annotation " +
+                    EventLog.warn(TAG, "two field in sub class and superclass has the same annotation " +
                             "name in" +
                             " souceclass : " + clazz.getSimpleName() +
                             "; we will only pick the field in subclass, field name : " + annotation.name() +
@@ -223,8 +222,8 @@ public class KvoHelper {
 
         if (KvoList.class.isAssignableFrom(type)) {
             flag = KVO_EVENT_ACTION_FLAG_FORCE_SYNC | KVO_EVENT_ACTION_FLAG_FORCE_MAIN;
-        } else if (KvoHashMap.class.isAssignableFrom(type)
-                || KvoHashSet.class.isAssignableFrom(type)) {
+        } else if (com.yy.base.event.kvo.map.KvoHashMap.class.isAssignableFrom(type)
+                || com.yy.base.event.kvo.set.KvoHashSet.class.isAssignableFrom(type)) {
             flag = KVO_EVENT_ACTION_FLAG_FORCE_SYNC;
         }
 

@@ -1,7 +1,6 @@
-package com.yy.base.event.kvo.list;
+package com.hydra.framework.event.kvo.list;
 
-import com.yy.base.event.kvo.KvoSource;
-
+import com.hydra.framework.event.kvo.KvoSource;
 import java.util.ListIterator;
 
 public class KvoListIterator<T> implements ListIterator<T> {

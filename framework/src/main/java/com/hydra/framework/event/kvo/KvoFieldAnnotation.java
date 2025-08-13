@@ -1,4 +1,4 @@
-package com.yy.base.event.kvo;
+package com.hydra.framework.event.kvo;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,12 +1,11 @@
-package com.yy.base.event.kvo;
+package com.hydra.framework.event.kvo;
 
-import static com.yy.base.event.kvo.Kvo.KVO_LOG_TAG;
+import com.hydra.framework.event.core.EventAction;
+import com.hydra.framework.event.core.EventReceiver;
+import com.hydra.framework.event.core.EventReceiverList;
+import com.hydra.framework.event.kvo.helper.KvoHelper.KvoField;
+import com.hydra.framework.event.utils.EventLog;
 
-import com.yy.base.event.core.EventAction;
-import com.yy.base.event.core.EventReceiver;
-import com.yy.base.event.core.EventReceiverList;
-import com.yy.base.event.kvo.helper.KvoHelper.KvoField;
-import com.yy.base.logger.MLog;
 
 /**
  * kvo没有用event Dispatcher对于sticky处理的数据结构, 但是使用了sticky的机制
@@ -15,6 +14,8 @@ import com.yy.base.logger.MLog;
  * 每个对象都是一个Dispatcher，这样的内存会大很多
  */
 public class KvoEventReceiverList extends EventReceiverList {
+
+    private static final String TAG = "KvoEventReceiverList";
 
     private final KvoSource mKvoSource;
 
@@ -46,7 +47,7 @@ public class KvoEventReceiverList extends EventReceiverList {
 
             invokeEventToReceiver(kvoEventIntent, eventReceiver);
         } catch (IllegalAccessException e) {
-            MLog.error(KVO_LOG_TAG, "get field value failed : " + e.toString());
+            EventLog.error(TAG, "get field value failed : " + e.toString());
         }
     }
 }

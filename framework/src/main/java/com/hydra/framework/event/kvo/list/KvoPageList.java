@@ -1,16 +1,13 @@
-package com.yy.base.event.kvo.list;
+package com.hydra.framework.event.kvo.list;
 
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.yy.base.event.kvo.KvoFieldAnnotation;
-import com.yy.base.event.kvo.KvoSource;
-import com.yy.base.logger.MLog;
-
+import com.hydra.framework.event.kvo.KvoFieldAnnotation;
+import com.hydra.framework.event.kvo.KvoSource;
+import com.hydra.framework.event.utils.EventLog;
 import java.util.List;
-
-import common.Page;
 
 /**
  * Created by Hydra.
@@ -87,10 +84,10 @@ public class KvoPageList<T> extends KvoSource {
     @MainThread
     public void combineList(List<T> resList, long resSnapshot, long resLimit,
                             long resTotal, long reqOffset, long resOffset) {
-        MLog.debug(TAG, "current list size: " + datas.size() + ", snapshot: " +
+        EventLog.debug(TAG, "current list size: " + datas.size() + ", snapshot: " +
                 this.snapshot + ", offset: " + this.offset + ", limit: " + this.limit +
                 ", total: " + this.total);
-        MLog.debug(TAG, "new list size: " + resList.size() + ", snapshot: " +
+        EventLog.debug(TAG, "new list size: " + resList.size() + ", snapshot: " +
                 resSnapshot + ", startOffset: " + reqOffset +  ", newOffset: " + resOffset +
                 ", limit: " + resLimit + ", total: " + resTotal);
 
@@ -124,16 +121,16 @@ public class KvoPageList<T> extends KvoSource {
                     setValue(kvo_hasMore, resTotal > resOffset);
                 } else {
                     //对于不连续的分页，放弃此次数据
-                    MLog.error(TAG, "no continue datas in page list");
+                    EventLog.error(TAG, "no continue datas in page list");
                 }
             } else {
-                MLog.error(TAG, "local offset is bigger than remote");
+                EventLog.error(TAG, "local offset is bigger than remote");
             }
 
             return;
         }
 
-        MLog.error(TAG, "old snapshot is expired");
+        EventLog.error(TAG, "old snapshot is expired");
 
         //  快照失效的情况，也可以有不同的策略
         //  1、对于严格排序列表，比如榜单，这里要清空原数据，然后重新请求第一页，

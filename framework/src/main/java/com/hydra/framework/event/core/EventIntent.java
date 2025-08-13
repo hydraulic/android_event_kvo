@@ -2,7 +2,7 @@ package com.hydra.framework.event.core;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.yy.base.utils.JFlagUtil;
+import com.hydra.framework.utils.JFlagUtil;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**

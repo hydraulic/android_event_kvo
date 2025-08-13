@@ -1,16 +1,14 @@
 package com.hydra.framework.event.core;
 
+import android.nfc.Tag;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.yy.base.logger.MLog;
+import com.hydra.framework.event.utils.EventLog;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-
-import static com.yy.base.event.core.EventDispatcher.EVENT_LOG_TAG;
 
 /**
  * Created by Hydra.
@@ -18,6 +16,8 @@ import static com.yy.base.event.core.EventDispatcher.EVENT_LOG_TAG;
  */
 @SuppressWarnings("unchecked")
 public class EventBundle {
+
+    private static final String TAG = "EventBundle";
 
     public static final int EVENT_BUNDLE_FLAG_NONE = 0;
 
@@ -54,7 +54,7 @@ public class EventBundle {
         try {
             return (T) mKeyArgs.get(key);
         } catch (ClassCastException e) {
-            MLog.error(EVENT_LOG_TAG, "EventBundle getArgWithKey failed : " + e.toString());
+            EventLog.error(TAG, "EventBundle getArgWithKey failed : " + e.toString());
         }
 
         return null;
@@ -70,7 +70,7 @@ public class EventBundle {
             try {
                 return (T) mAllArgs.get(index);
             } catch (ClassCastException e) {
-                MLog.error(EVENT_LOG_TAG, "EventBundle getArgWithIndex failed : " + e.toString());
+                EventLog.error(TAG, "EventBundle getArgWithIndex failed : " + e.toString());
             }
         }
         return null;

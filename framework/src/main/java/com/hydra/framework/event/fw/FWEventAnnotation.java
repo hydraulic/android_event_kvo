@@ -1,7 +1,7 @@
 package com.hydra.framework.event.fw;
 
-import com.yy.base.event.core.EventReceiver;
-import com.yy.base.thread.ThreadBus;
+import com.hydra.framework.event.core.EventReceiver;
+import com.hydra.framework.thread.ThreadBus;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

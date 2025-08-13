@@ -1,17 +1,21 @@
-package com.yy.base.event.kvo;
-
-import static com.yy.base.event.kvo.helper.KvoHelper.getKvoMethods;
+package com.hydra.framework.event.kvo;
 
 import androidx.annotation.NonNull;
 
-import com.yy.base.FrameworkRuntimeContext;
-import com.yy.base.event.core.EventReceiver;
-import com.yy.base.event.core.helper.DefaultEventThreadWrapper;
-import com.yy.base.event.kvo.helper.KvoHelper.KvoMethodNode;
-import com.yy.base.logger.MLog;
-
+import com.hydra.framework.event.core.EventReceiver;
+import com.hydra.framework.event.core.helper.DefaultEventThreadWrapper;
+import com.hydra.framework.event.kvo.KvoEventIntent;
+import com.hydra.framework.event.kvo.KvoEventReceiver;
+import com.hydra.framework.event.kvo.KvoMethodAnnotation;
+import com.hydra.framework.event.kvo.KvoSource;
+import com.hydra.framework.event.kvo.helper.KvoHelper.KvoMethodNode;
+import com.hydra.framework.event.utils.EventLog;
+import com.hydra.framework.event.utils.EventUtils;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+
+
+import static com.hydra.framework.event.kvo.helper.KvoHelper.getKvoMethods;
 
 /**
  * Created by Hydra.
@@ -22,7 +26,7 @@ import java.util.ArrayList;
  */
 public class Kvo {
 
-    public static final String KVO_LOG_TAG = "KvoEvent";
+    private static final String TAG = "Kvo";
 
     /**
      * 这个方法 和 带flag参数的方法 的区别是：
@@ -103,9 +107,9 @@ public class Kvo {
 
             addKvoBinding(source, target, method);
         } catch (NoSuchMethodException e) {
-            MLog.error(KVO_LOG_TAG, "add kvo binding failed :" + e.toString());
+            EventLog.error(TAG, "add kvo binding failed :" + e.toString());
 
-            if (FrameworkRuntimeContext.sIsDebuggable) {
+            if (EventUtils.sIsDebuggable) {
                 throw new RuntimeException("method " + methodName + " not found in class " +
                         target.getClass().getName() + ", please check again");
             }
@@ -127,7 +131,7 @@ public class Kvo {
 
             removeKvoBinding(source, target, method);
         } catch (NoSuchMethodException e) {
-            MLog.error(KVO_LOG_TAG, "remove kvo binding failed :" + e.toString());
+            EventLog.error(TAG, "remove kvo binding failed :" + e.toString());
         }
     }
 

@@ -1,17 +1,17 @@
-package com.yy.base.event.kvo.list;
-
-import static com.yy.base.event.kvo.list.KvoListHelper.KvoListChangeType.KvoEventArg_Type_Insert;
-import static com.yy.base.event.kvo.list.KvoListHelper.KvoListChangeType.KvoEventArg_Type_Reload;
-import static com.yy.base.event.kvo.list.KvoListHelper.KvoListChangeType.KvoEventArg_Type_Remove;
-import static com.yy.base.event.kvo.list.KvoListHelper.KvoListChangeType.KvoEventArg_Type_Replace;
+package com.hydra.framework.event.kvo.list;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.yy.base.event.kvo.KvoEventIntent;
-import com.yy.base.event.kvo.KvoSource;
-
+import com.hydra.framework.event.kvo.KvoEventIntent;
+import com.hydra.framework.event.kvo.KvoSource;
 import java.util.List;
+
+
+import static com.hydra.framework.event.kvo.list.KvoListHelper.KvoListChangeType.KvoEventArg_Type_Insert;
+import static com.hydra.framework.event.kvo.list.KvoListHelper.KvoListChangeType.KvoEventArg_Type_Reload;
+import static com.hydra.framework.event.kvo.list.KvoListHelper.KvoListChangeType.KvoEventArg_Type_Remove;
+import static com.hydra.framework.event.kvo.list.KvoListHelper.KvoListChangeType.KvoEventArg_Type_Replace;
 
 /**
  * Created by Hydra.

@@ -3,20 +3,19 @@ package com.hydra.framework.event.core;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.yy.base.FrameworkRuntimeContext;
-import com.yy.base.logger.MLog;
-import com.yy.base.utils.StringUtils;
+import com.hydra.framework.event.utils.EventLog;
+import com.hydra.framework.event.utils.EventUtils;
+import com.hydra.framework.utils.StringUtils;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Method;
 import java.util.Comparator;
-
-
-import static com.yy.base.event.core.EventDispatcher.EVENT_LOG_TAG;
 
 /**
  * Created by Hydra.
  */
 public class EventReceiver {
+
+    private static final String TAG = "EventReceiver";
 
     public static final int DEFAULT_EVENT_RECEIVER_PRIORITY = 0;
 
@@ -53,14 +52,14 @@ public class EventReceiver {
         final Object targetObj = target.get();
 
         if (targetObj == null) {
-            // fix: https://crash.duowan.com/static/issue.html?appId=yym-hago-and&sha1=247631301c2ab140471b704731050694362cfc16&appVersion=5.4.7&startDateString=2022-09-23&endDateString=2022-09-23&crashType=ALL
             try {
-                MLog.info(EVENT_LOG_TAG, "invoke failed target has been recycled, method is : "
+                EventLog.info(TAG, "invoke failed target has been recycled, method is : "
                     + entry.toGenericString());
             } catch (Exception e) {
-                MLog.error(EVENT_LOG_TAG, "invoke failed target has been recycled, method is : "
-                    + entry, e);
+                EventLog.error(TAG, "invoke failed target has been recycled, method is : "
+                    + entry + ", error: " + e);
             }
+
             return false;
         }
 
@@ -81,10 +80,10 @@ public class EventReceiver {
         try {
             entry.invoke(target, eventIntent);
         } catch (Throwable e) {
-            MLog.error(EVENT_LOG_TAG, "invoke failed target error : " + Log.getStackTraceString(e) +
+            EventLog.error(TAG, "invoke failed target error : " + Log.getStackTraceString(e) +
                             " cause : " + e.getCause() + " method : " + entry.toString());
 
-            if (FrameworkRuntimeContext.sIsDebuggable) {
+            if (EventUtils.sIsDebuggable) {
                 throw new RuntimeException(e);
             }
         }

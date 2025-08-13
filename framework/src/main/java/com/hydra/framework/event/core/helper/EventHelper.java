@@ -1,15 +1,12 @@
 package com.hydra.framework.event.core.helper;
 
 import androidx.annotation.NonNull;
-import com.yy.base.logger.MLog;
+import com.hydra.framework.event.utils.EventLog;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
-
-
-import static com.yy.base.event.core.EventDispatcher.EVENT_LOG_TAG;
 
 /**
  * 辅助类，遍历获取当前类和父类的绑定的(过滤了系统父类)函数和field信息
@@ -37,6 +34,8 @@ import static com.yy.base.event.core.EventDispatcher.EVENT_LOG_TAG;
  */
 public class EventHelper {
 
+    private static final String TAG = "EventHelper";
+
     //过滤掉java和Android系统的类
     private static final String ANDROID_SYSTEM_PACKAGE_PREFIX = "android.";
     private static final String ANDROIDX_PACKAGE_PREFIX = "androidx.";
@@ -59,7 +58,7 @@ public class EventHelper {
         try {
             return getMethodRecursive(clazz);
         } catch (NoClassDefFoundError error) {
-            MLog.error(EVENT_LOG_TAG, "getExcludeSystemMethods error clazz : "
+            EventLog.error(TAG, "getExcludeSystemMethods error clazz : "
                 + clazz.getName() + " exception : " + error.toString());
 
             ArrayList<Method> methodList = new ArrayList<>();
@@ -123,7 +122,7 @@ public class EventHelper {
         try {
             return getFieldRecursive(clazz);
         } catch (NoClassDefFoundError error) {
-            MLog.error(EVENT_LOG_TAG, "getExcludeSystemFields error clazz : "
+            EventLog.error(TAG, "getExcludeSystemFields error clazz : "
                 + clazz.getName() + " exception : " + error.toString());
 
             ArrayList<Field> fieldList = new ArrayList<>();

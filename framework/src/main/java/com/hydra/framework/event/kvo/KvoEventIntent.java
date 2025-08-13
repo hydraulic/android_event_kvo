@@ -1,11 +1,11 @@
-package com.yy.base.event.kvo;
+package com.hydra.framework.event.kvo;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import com.hydra.framework.event.core.EventAction;
+import com.hydra.framework.event.core.EventIntent;
+import com.hydra.framework.event.core.EventSender;
 
-import com.yy.base.event.core.EventAction;
-import com.yy.base.event.core.EventIntent;
-import com.yy.base.event.core.EventSender;
 
 /**
  * Created by Hydra.

@@ -1,20 +1,15 @@
-package com.yy.base.event.kvo;
+package com.hydra.framework.event.kvo;
 
-import static com.yy.base.event.kvo.Kvo.KVO_LOG_TAG;
-import static com.yy.base.event.kvo.helper.KvoHelper.kvoFieldsContainerFor;
-
+import static com.hydra.framework.event.kvo.helper.KvoHelper.kvoFieldsContainerFor;
+import static Kvo.TAG;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-import com.yy.base.FrameworkRuntimeContext;
-import com.yy.base.event.core.EventAction;
-import com.yy.base.event.core.EventDispatcher;
-import com.yy.base.event.core.EventReceiverList;
-import com.yy.base.event.kvo.helper.KvoHelper.KvoField;
-import com.yy.base.logger.MLog;
-import com.yy.base.utils.FrameworkSettingFlagKeys;
-import com.yy.base.utils.SettingFlags;
-
+import com.hydra.framework.event.core.EventAction;
+import com.hydra.framework.event.core.EventDispatcher;
+import com.hydra.framework.event.core.EventReceiverList;
+import com.hydra.framework.event.kvo.helper.KvoHelper.KvoField;
+import com.hydra.framework.event.utils.EventLog;
+import com.hydra.framework.event.utils.EventUtils;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 
@@ -24,6 +19,8 @@ import java.util.HashMap;
  * 这里是不支持绑定一个没有KvoMethodAnnotation的函数的，即使传了函数名，也会绑定不成功
  */
 public class KvoSource extends EventDispatcher {
+
+    private static final String TAG = "KvoSource";
 
     private transient final HashMap<String, KvoField> mKvoValues = kvoFieldsContainerFor(getClass());
 
@@ -48,7 +45,7 @@ public class KvoSource extends EventDispatcher {
 
             notifyEvent(kvoEventIntent);
         } catch (IllegalAccessException e) {
-            MLog.error(KVO_LOG_TAG, "get field value failed : " + e.toString());
+            EventLog.error(TAG, "get field value failed : " + e.toString());
         }
     }
 
@@ -75,13 +72,13 @@ public class KvoSource extends EventDispatcher {
 
             notifyEvent(kvoEventIntent);
         } catch (IllegalAccessException e) {
-            MLog.error(KVO_LOG_TAG, "get field value failed : " + e.toString());
+            EventLog.error(TAG, "get field value failed : " + e.toString());
         }
     }
 
     @Override
     protected EventReceiverList buildEventReceiverList(EventAction eventAction) {
-        return new KvoEventReceiverList(eventAction, this);
+        return new com.yy.base.event.kvo.KvoEventReceiverList(eventAction, this);
     }
 
     public KvoField declaredKvoField(String key) {
@@ -112,20 +109,13 @@ public class KvoSource extends EventDispatcher {
                 notifyEvent(kvoEventIntent);
             }
         } catch (Exception e) {
-            MLog.error(KVO_LOG_TAG, "notify kvo event failed:", e);
+            EventLog.error(TAG, "notify kvo event failed:" + e);
 
-            if (FrameworkRuntimeContext.sIsDebuggable) {
-                boolean switchOn = SettingFlags.getBoolean(FrameworkSettingFlagKeys.ENV_PAGE_AUTO_SWITCH,
-                        false);
-                boolean switchOnVoice =
-                        SettingFlags.getBoolean(FrameworkSettingFlagKeys.ENV_PAGE_AUTO_SWITCH_VOICE,
-                                false);
-                if (!switchOn && !switchOnVoice) {
-                    throw new RuntimeException("exception when setValue, key: " + key +
-                            ", oldValue" + (oldValue == null ? "null" : oldValue.toString()) +
-                            ", newValue" +
-                            newValue + ", error: " + e.toString(), e);
-                }
+            if (EventUtils.sIsDebuggable) {
+                throw new RuntimeException("exception when setValue, key: " + key +
+                        ", oldValue" + (oldValue == null ? "null" : oldValue.toString()) +
+                        ", newValue" +
+                        newValue + ", error: " + e.toString(), e);
             }
         }
     }

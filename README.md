@@ -16,3 +16,7 @@
 1. 分层；
 
 2. 功能简单完备；
+
+TODO
+对event加入interceptor；
+跨进程支持；

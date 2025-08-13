@@ -2,14 +2,14 @@ package com.hydra.framework.event.fw;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.yy.base.event.core.EventAction;
-import com.yy.base.event.core.EventDispatcher;
-import com.yy.base.event.core.EventIntent;
-import com.yy.base.event.core.EventReceiver;
-import com.yy.base.event.core.EventSender;
-import com.yy.base.event.core.helper.DefaultEventThreadWrapper;
-import com.yy.base.logger.MLog;
-import com.yy.base.thread.ThreadBus;
+import com.hydra.framework.event.core.EventAction;
+import com.hydra.framework.event.core.EventDispatcher;
+import com.hydra.framework.event.core.EventIntent;
+import com.hydra.framework.event.core.EventReceiver;
+import com.hydra.framework.event.core.EventSender;
+import com.hydra.framework.event.core.helper.DefaultEventThreadWrapper;
+import com.hydra.framework.event.utils.EventLog;
+import com.hydra.framework.thread.ThreadBus;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,8 +17,7 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 
-import static com.yy.base.event.core.helper.EventHelper.getExcludeSystemMethods;
-
+import static com.hydra.framework.event.core.helper.EventHelper.getExcludeSystemMethods;
 
 /**
  * Created by Hydra.
@@ -26,7 +25,7 @@ import static com.yy.base.event.core.helper.EventHelper.getExcludeSystemMethods;
  */
 public class FWEvent {
 
-    public static final String FWEVENT_LOG_TAG = "FWEvent";
+    private static final String TAG = "FWEvent";
 
     private static final EventDispatcher sFWEventDispatcher;
 
@@ -161,7 +160,7 @@ public class FWEvent {
 
             bindEventTo(target, method);
         } catch (NoSuchMethodException | SecurityException e) {
-            MLog.error(FWEVENT_LOG_TAG, "bind event failed no method : " + methodName
+            EventLog.error(TAG, "bind event failed no method : " + methodName
                     + " in " + target.toString());
         }
     }
@@ -187,7 +186,7 @@ public class FWEvent {
 
             removeEventFrom(target, method);
         } catch (NoSuchMethodException | SecurityException e) {
-            MLog.error(FWEVENT_LOG_TAG, "remove event failed no method : " + methodName
+            EventLog.error(TAG, "remove event failed no method : " + methodName
                     + " in " + target.toString());
         }
     }

@@ -1,11 +1,10 @@
-package com.yy.base.event.kvo.helper;
+package com.hydra.framework.event.kvo.helper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.yy.base.event.kvo.Kvo;
-import com.yy.base.event.kvo.KvoSource;
-
+import com.hydra.framework.event.kvo.Kvo;
+import com.hydra.framework.event.kvo.KvoSource;
 import java.util.HashMap;
 import java.util.Map.Entry;
 

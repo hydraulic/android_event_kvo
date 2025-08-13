@@ -1,10 +1,10 @@
-package com.yy.base.event.kvo.list;
+package com.hydra.framework.event.kvo.list;
 
 import androidx.annotation.NonNull;
 
-import com.yy.base.event.kvo.KvoSource;
-import com.yy.base.event.kvo.list.KvoListHelper.NSRange;
+import com.hydra.framework.event.kvo.KvoSource;
 
+import com.hydra.framework.event.kvo.list.KvoListHelper.NSRange;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;

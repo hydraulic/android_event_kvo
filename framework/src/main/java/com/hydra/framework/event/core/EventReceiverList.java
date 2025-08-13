@@ -1,17 +1,16 @@
 package com.hydra.framework.event.core;
 
-import com.yy.base.logger.MLog;
+import com.hydra.framework.event.utils.EventLog;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.TreeSet;
-
-
-import static com.yy.base.event.core.EventDispatcher.EVENT_LOG_TAG;
 
 /**
  * Created by Hydra.
  */
 public class EventReceiverList {
+
+    private static final String TAG = "EventReceiverList";
 
     public static final int DEFAULT_RECEIVER_COUNT_THRESHOLD = 60;
 
@@ -38,7 +37,7 @@ public class EventReceiverList {
 
         //event receiver的hashcode是通过里面的string的hash，理论上在同一个事件派发域内是不会重复的
         if (preExist) {
-            MLog.warn(EVENT_LOG_TAG,
+            EventLog.warn(TAG,
                     "add event destination warning, destination already exist : " + eventReceiver.toString());
             //不走下面的流程了
             return;
@@ -94,7 +93,7 @@ public class EventReceiverList {
         int size = size();
 
         if (size > DEFAULT_RECEIVER_COUNT_THRESHOLD) {
-            MLog.warn(EVENT_LOG_TAG, "too many connections: " + size + " add to: " + mEventAction);
+            EventLog.warn(TAG, "too many connections: " + size + " add to: " + mEventAction);
 
             Iterator<EventReceiver> iterator = mReceivers.iterator();
 

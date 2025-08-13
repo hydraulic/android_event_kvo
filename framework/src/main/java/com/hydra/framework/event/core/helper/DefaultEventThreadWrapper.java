@@ -2,8 +2,8 @@ package com.hydra.framework.event.core.helper;
 
 import android.util.SparseArray;
 import androidx.annotation.Nullable;
-import com.yy.base.event.core.IEventThread;
-import com.yy.base.thread.ThreadBus;
+import com.hydra.framework.event.core.IEventThread;
+import com.hydra.framework.thread.ThreadBus;
 
 /**
  * 辅助类，默认框架不带线程，只带线程接口IEventThread
